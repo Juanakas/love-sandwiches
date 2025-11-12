@@ -12,7 +12,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
-sales = SHEET.worksheet('sales')
+def get_sales_data():
+    data_str = input("Input sales data:")
+    print(f"Your data: {data_str}")
 
-data = sales.get_all_values()
-print(data)
+get_sales_data()
