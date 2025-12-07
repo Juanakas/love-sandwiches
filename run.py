@@ -17,12 +17,14 @@ def get_sales_data():
     data_str = input("Input sales data:")
     # The data is split into a list.
     sales_data = data_str.split(",")
+    # Checks the data (list object) is the length of 6.
     validate_data(sales_data)
 
-
+# Values is a list object.
 def validate_data(values):
     try:
-        if len(values) != 6: # The user must enter 6 values.
+        [int(value) for value in values] # Tries to convert each value in the list to an integer.
+        if len(values) != 6: # If the length of the list is DIFFERENT than 6.
             raise ValueError(f"There must be 6 values, you entered {len(values)} values.")
     except ValueError as e: #e means error.
         print(f"Invalid data: {e}, please try again.\n")
