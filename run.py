@@ -52,10 +52,23 @@ def update_sales_worksheet(data): # FUNCTION 3.  Update sales worksheet in the G
 def calculate_surplus_data(sales_row): # FUNCTION 4. Calculate surplus data.
 
     stock = SHEET.worksheet('stock').get_all_values()
-    pprint(stock)
     stock_row = stock[-1]
-    print(stock_row)
+    stock_row = [int(x) for x in stock_row]
+    print(f"stock_row: {stock_row}")
+    print(f"sales_row: {sales_row}")
+    surplus_data = []
+    for stock, sales in zip(stock_row, sales_row):
+        surplus_data.append(stock - sales)
+    print(f"Surplus_sandwiches: {surplus_data}")
+    return surplus_data
     
+
+def update_surplus_worksheet(surplus_data): # FUNCTION 5. Update the Surplus worksheet by adding one more row.
+
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(surplus_data)
+    print("Surplus worksheet updated successfully.\n")
+    print(f"Surplus row added: {surplus_data}")
 
 
 def main():
@@ -63,6 +76,8 @@ def main():
     data = get_sales_data()
     sales_data = [int(num) for num in data]
     update_sales_worksheet(sales_data)
-    calculate_surplus_data(sales_data)
+
+    surplus_data = calculate_surplus_data(sales_data)
+    update_surplus_worksheet(surplus_data)
 
 main()
