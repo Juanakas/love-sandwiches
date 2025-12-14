@@ -40,6 +40,26 @@ def validate_data(values): # FUNCTION 2.  Validate the data provided by the User
     
     return True
 
+def update_worksheet(data, worksheet):
+    """"
+    Receives a list of integers to be inserted into a worksheet.
+    Update the relevant worksheet with the data provided.
+    """
+    while True:
+        match worksheet:
+            case "sales":
+                sales_worksheet = SHEET.worksheet('sales')
+                sales_worksheet.append_row(data)
+                break
+            case "surplus":
+                surplus_worksheet = SHEET.worksheet('surplus')
+                surplus_worksheet.append_row(data)
+                break
+            case _:
+                print(f"worksheet {worksheet} is incorrect. Please choose sales or suprplus worksheet.\n")
+                continue
+
+
 def update_sales_worksheet(data): # FUNCTION 3.  Update sales worksheet in the Google Sheet.
     """
    Update sales worksheet, add new row with the list data provided.
@@ -75,9 +95,9 @@ def main():
 
     data = get_sales_data()
     sales_data = [int(num) for num in data]
-    update_sales_worksheet(sales_data)
+    update_worksheet(sales_data, "sales")
 
     surplus_data = calculate_surplus_data(sales_data)
-    update_surplus_worksheet(surplus_data)
+    update_worksheet(surplus_data, "surplus")
 
 main()
