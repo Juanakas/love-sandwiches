@@ -91,6 +91,34 @@ def update_surplus_worksheet(surplus_data): # FUNCTION 5. Update the Surplus wor
     print(f"Surplus row added: {surplus_data}")
 
 
+"""
+def calculate_avg_sales_last_5_days(sandwich_name): # FUNCTION 6. Function needs to retrieve last 5 days sales numbers for a given sandwich and, calculate average.
+
+   sales = SHEET.worksheet('sales').get_all_values()
+   # Find the row that starts with sandwich_name
+   for row in sales:
+       if row[0] == sandwich_name:
+           # Extract the last 5 values from that list.
+           last_5_values = row[-5:]
+           # Convert to integers
+           last_5_values = [int(value) for value in last_5_values]
+
+    # Calculate average
+    return sum(last_5_values) / len(last_5_values)
+"""
+
+def get_last_5_entries_sales():
+    """
+    Collects columns of data from Sales worksheet.
+    Collecting the last 5 entries for each sandwich column and returns the data as a list of lists.
+    """
+    sales = SHEET.worksheet('sales')
+    columns = []
+    for ind in range(1,7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])
+    pprint(columns)
+
 def main():
 
     data = get_sales_data()
@@ -100,4 +128,6 @@ def main():
     surplus_data = calculate_surplus_data(sales_data)
     update_worksheet(surplus_data, "surplus")
 
-main()
+# main()
+
+sales_columns = get_last_5_entries_sales()
